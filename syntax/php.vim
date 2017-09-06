@@ -379,25 +379,25 @@ endif
 syn case match
 
 " HereDoc
-syn region phpHereDoc matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\I\i*\)\2$" end="^\z1\(;\=$\)\@=" contained contains=phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
+syn region phpHereDoc matchgroup=phpHereDoc_Tag start="\(<<<\)\@<=\(\"\=\)\z(\I\i*\)\2$" end="^\z1\(;\=$\)\@=" contained contains=phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
 " including HTML,JavaScript,SQL even if not enabled via options
-syn region phpHereDoc matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@=" contained contains=@htmlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
-syn region phpHereDoc matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
-syn region phpHereDoc matchgroup=Delimiter start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@=" contained contains=@htmlJavascript,phpIdentifierSimply,phpIdentifier,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
+syn region phpHereDoc matchgroup=phpHereDoc_Tag start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@=" contained contains=@htmlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
+syn region phpHereDoc matchgroup=phpHereDoc_Tag start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,phpIdentifier,phpIdentifierSimply,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
+syn region phpHereDoc matchgroup=phpHereDoc_Tag start="\(<<<\)\@<=\(\"\=\)\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)\2$" end="^\z1\(;\=$\)\@=" contained contains=@htmlJavascript,phpIdentifierSimply,phpIdentifier,phpIdentifierComplex,phpBackslashSequences,phpMethodsVar,@Spell keepend extend
 
 " NowDoc
-syn region phpNowDoc matchgroup=Delimiter start="\(<<<\)\@<='\z(\I\i*\)'$" end="^\z1\(;\=$\)\@=" contained contains=@Spell keepend extend
+syn region phpNowDoc matchgroup=phpNowDoc_Tag start="\(<<<\)\@<='\z(\I\i*\)'$" end="^\z1\(;\=$\)\@=" contained contains=@Spell keepend extend
 " including HTML,JavaScript,SQL even if not enabled via options
-syn region phpNowDoc matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@=" contained contains=@htmlTop,@Spell keepend extend
-syn region phpNowDoc matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,@Spell keepend extend
-syn region phpNowDoc matchgroup=Delimiter start="\(<<<\)\@<='\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@=" contained contains=@htmlJavascript,@Spell keepend extend
+syn region phpNowDoc matchgroup=phpNowDoc_Tag start="\(<<<\)\@<='\z(\(\I\i*\)\=\(html\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@=" contained contains=@htmlTop,@Spell keepend extend
+syn region phpNowDoc matchgroup=phpNowDoc_Tag start="\(<<<\)\@<='\z(\(\I\i*\)\=\(sql\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@=" contained contains=@sqlTop,@Spell keepend extend
+syn region phpNowDoc matchgroup=phpNowDoc_Tag start="\(<<<\)\@<='\z(\(\I\i*\)\=\(javascript\)\c\(\i*\)\)'$" end="^\z1\(;\=$\)\@=" contained contains=@htmlJavascript,@Spell keepend extend
 syn case ignore
 
 " Parent
 if exists("php_parent_error_close") || exists("php_parent_error_open")
   syn match phpParent "[{}]" contained
-  syn region phpParent matchgroup=Delimiter start="(" end=")" contained contains=@phpClInside transparent
-  syn region phpParent matchgroup=Delimiter start="\[" end="\]" contained contains=@phpClInside transparent
+  syn region phpParent matchgroup=phpParent_Braces start="(" end=")" contained contains=@phpClInside transparent
+  syn region phpParent matchgroup=phpParent_Braces start="\[" end="\]" contained contains=@phpClInside transparent
   if !exists("php_parent_error_close")
     syn match phpParent "[\])]" contained
   endif
@@ -413,23 +413,23 @@ syn cluster phpClTop contains=@phpClFunction,phpFoldFunction,phpFoldClass,phpFol
 " Php Region
 if exists("php_parent_error_open")
   if exists("php_noShortTags")
-    syn region phpRegion matchgroup=Delimiter start="<?php" end="?>" contains=@phpClTop
+    syn region phpRegion matchgroup=phpRegion_Tag start="<?php" end="?>" contains=@phpClTop
   else
-    syn region phpRegion matchgroup=Delimiter start="<?\(php\)\=" end="?>" contains=@phpClTop
+    syn region phpRegion matchgroup=phpRegion_Tag start="<?\(php\)\=" end="?>" contains=@phpClTop
   endif
-  syn region phpRegionSc matchgroup=Delimiter start=+<script language="php">+ end=+</script>+ contains=@phpClTop
+  syn region phpRegionSc matchgroup=phpRegionSc_Tag start=+<script language="php">+ end=+</script>+ contains=@phpClTop
   if exists("php_asp_tags")
-    syn region phpRegionAsp matchgroup=Delimiter start="<%\(=\)\=" end="%>" contains=@phpClTop
+    syn region phpRegionAsp matchgroup=phpRegionAsp_Tag start="<%\(=\)\=" end="%>" contains=@phpClTop
   endif
 else
   if exists("php_noShortTags")
-    syn region phpRegion matchgroup=Delimiter start="<?php" end="?>" contains=@phpClTop keepend
+    syn region phpRegion matchgroup=phpRegion_Tag start="<?php" end="?>" contains=@phpClTop keepend
   else
-    syn region phpRegion matchgroup=Delimiter start="<?\(php\)\=" end="?>" contains=@phpClTop keepend
+    syn region phpRegion matchgroup=phpRegion_Tag start="<?\(php\)\=" end="?>" contains=@phpClTop keepend
   endif
-  syn region phpRegionSc matchgroup=Delimiter start=+<script language="php">+ end=+</script>+ contains=@phpClTop keepend
+  syn region phpRegionSc matchgroup=phpRegionSc_Tag start=+<script language="php">+ end=+</script>+ contains=@phpClTop keepend
   if exists("php_asp_tags")
-    syn region phpRegionAsp matchgroup=Delimiter start="<%\(=\)\=" end="%>" contains=@phpClTop keepend
+    syn region phpRegionAsp matchgroup=phpRegionAsp_Tag start="<%\(=\)\=" end="%>" contains=@phpClTop keepend
   endif
 endif
 
@@ -447,13 +447,13 @@ if exists("php_folding") && php_folding==1
   syn match phpException "\(\s\|^\)finally\(\s\+.*}\)\@=" contained
 
   set foldmethod=syntax
-  syn region phpFoldHtmlInside matchgroup=Delimiter start="?>" end="<?\(php\)\=" contained transparent contains=@htmlTop
-  syn region phpFoldFunction matchgroup=Storageclass start="^\z(\s*\)\(abstract\s\+\|final\s\+\|private\s\+\|protected\s\+\|public\s\+\|static\s\+\)*function\s\([^};]*$\)\@="rs=e-9 matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldHtmlInside,phpFCKeyword contained transparent fold extend
-  syn region phpFoldFunction matchgroup=Define start="^function\s\([^};]*$\)\@=" matchgroup=Delimiter end="^}" contains=@phpClFunction,phpFoldHtmlInside contained transparent fold extend
-  syn region phpFoldClass matchgroup=Structure start="^\z(\s*\)\(abstract\s\+\|final\s\+\)*\(trait\|class\)\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction,phpSCKeyword contained transparent fold extend
-  syn region phpFoldInterface matchgroup=Structure start="^\z(\s*\)interface\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
-  syn region phpFoldCatch matchgroup=Exception start="^\z(\s*\)catch\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
-  syn region phpFoldTry matchgroup=Exception start="^\z(\s*\)try\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
+  syn region phpFoldHtmlInside matchgroup=phpFoldHtmlInside_Tag start="?>" end="<?\(php\)\=" contained transparent contains=@htmlTop
+  syn region phpFoldFunction matchgroup=phpFoldFunction_Storageclass start="^\z(\s*\)\(abstract\s\+\|final\s\+\|private\s\+\|protected\s\+\|public\s\+\|static\s\+\)*function\s\([^};]*$\)\@="rs=e-9 matchgroup=phpFoldFunction_End end="^\z1}" contains=@phpClFunction,phpFoldHtmlInside,phpFCKeyword contained transparent fold extend
+  syn region phpFoldFunction matchgroup=phpFoldFunction_Define start="^function\s\([^};]*$\)\@=" matchgroup=phpFoldFunction_End end="^}" contains=@phpClFunction,phpFoldHtmlInside contained transparent fold extend
+  syn region phpFoldClass matchgroup=phpFoldClass_Structure start="^\z(\s*\)\(abstract\s\+\|final\s\+\)*\(trait\|class\)\s\+\([^}]*$\)\@=" matchgroup=phpFoldClass_End end="^\z1}" contains=@phpClFunction,phpFoldFunction,phpSCKeyword contained transparent fold extend
+  syn region phpFoldInterface matchgroup=phpFoldInterface_Start start="^\z(\s*\)interface\s\+\([^}]*$\)\@=" matchgroup=phpFoldInterface_End end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
+  syn region phpFoldCatch matchgroup=phpFoldCatch_Exception start="^\z(\s*\)catch\s\+\([^}]*$\)\@=" matchgroup=phpFoldCatch_End end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
+  syn region phpFoldTry matchgroup=phpFoldTry_Try start="^\z(\s*\)try\s\+\([^}]*$\)\@=" matchgroup=phpFoldTry_End end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
 else
   syn keyword phpDefine function contained
   syn keyword phpStructure abstract class trait interface contained
@@ -461,8 +461,8 @@ else
   syn keyword phpStorageClass final global private protected public static contained
   if exists("php_folding") && php_folding==2
     set foldmethod=syntax
-    syn region phpFoldHtmlInside matchgroup=Delimiter start="?>" end="<?\(php\)\=" contained transparent contains=@htmlTop
-    syn region phpParent matchgroup=Delimiter start="{" end="}" contained contains=@phpClFunction,phpFoldHtmlInside transparent fold
+    syn region phpFoldHtmlInside matchgroup=phpFoldHtmlInside_Tag start="?>" end="<?\(php\)\=" contained transparent contains=@htmlTop
+    syn region phpParent matchgroup=phpParent_Braces start="{" end="}" contained contains=@phpClFunction,phpFoldHtmlInside transparent fold
   endif
 endif
 
@@ -606,7 +606,20 @@ hi def link phpDocTodo Todo
 hi def link phpException Exception
 hi def link phpFCKeyword Define
 hi def link phpFloat Float
+hi def link phpFoldCatch_End Delimiter
+hi def link phpFoldCatch_Exception Exception
+hi def link phpFoldClass_End Delimiter
+hi def link phpFoldClass_Start Structure
+hi def link phpFoldFunction_End Delimiter
+hi def link phpFoldFunction_Start Define
+hi def link phpFoldFunction_Storageclass Storageclass
+hi def link phpFoldHtmlInside_Tag Delimiter
+hi def link phpFoldInterface_End Delimiter
+hi def link phpFoldInterface_Start Structure
+hi def link phpFoldTry_End Delimiter
+hi def link phpFoldTry_Try Exception
 hi def link phpFunctions Function
+hi def link phpHereDoc_Tag Delimiter
 hi def link phpIdentifierConst Delimiter
 hi def link phpInclude Include
 hi def link phpInterpBogusDollarCurley Error
@@ -620,10 +633,14 @@ hi def link phpKeyword Statement
 hi def link phpLabel Label
 hi def link phpMemberSelector Structure
 hi def link phpMethods Function
+hi def link phpNowDoc_Tag Delimiter
 hi def link phpNumber Number
 hi def link phpOctalError Error
-hi def link phpParent Delimiter
+hi def link phpParent_Braces Delimiter
 hi def link phpParentError Error
+hi def link phpRegion_Tag Delimiter
+hi def link phpRegionAsp_Tag Delimiter
+hi def link phpRegionSc_Tag Delimiter
 hi def link phpRepeat Repeat
 hi def link phpSCKeyword StorageClass
 hi def link phpStatement Statement
