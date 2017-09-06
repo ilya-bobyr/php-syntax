@@ -285,34 +285,34 @@ syn region phpIdentifierComplex matchgroup=phpParent start="{\$"rs=e-1 end="}" c
 syn region phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contains=@phpClInside contained
 
 " Interpolated indentifiers (inside strings)
-	syn match phpBrackets "[][}{]" contained display
-	" errors
-		syn match phpInterpSimpleError "\[[^]]*\]" contained display " fallback (if nothing else matches)
-		syn match phpInterpSimpleError "->[^a-zA-Z_]" contained display
-		" make sure these stay above the correct DollarCurlies so they don't take priority
-		syn match phpInterpBogusDollarCurley "${[^}]*}" contained display " fallback (if nothing else matches)
-	syn match phpinterpSimpleBracketsInner "\w\+" contained
-	syn match phpInterpSimpleBrackets "\[\h\w*]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
-	syn match phpInterpSimpleBrackets "\[\d\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
-	syn match phpInterpSimpleBrackets "\[0[xX]\x\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
-	syn match phpInterpSimple "\$\h\w*\(\[[^]]*\]\|->\h\w*\)\?" contained contains=phpInterpSimpleBrackets,phpIdentifier,phpInterpSimpleError,phpMethods,phpMemberSelector display
-	syn match phpInterpVarname "\h\w*" contained
-	syn match phpInterpMethodName "\h\w*" contained " default color
-	syn match phpInterpSimpleCurly "\${\h\w*}" contains=phpInterpVarname contained extend
-	syn region phpInterpDollarCurley1Helper matchgroup=phpParent start="{" end="\[" contains=phpInterpVarname contained
-	syn region phpInterpDollarCurly1 matchgroup=phpParent start="\${\h\w*\["rs=s+1 end="]}" contains=phpInterpDollarCurley1Helper,@phpClConst contained extend
+syn match phpBrackets "[][}{]" contained display
+" errors
+syn match phpInterpSimpleError "\[[^]]*\]" contained display " fallback (if nothing else matches)
+syn match phpInterpSimpleError "->[^a-zA-Z_]" contained display
+" make sure these stay above the correct DollarCurlies so they don't take priority
+syn match phpInterpBogusDollarCurley "${[^}]*}" contained display " fallback (if nothing else matches)
+syn match phpinterpSimpleBracketsInner "\w\+" contained
+syn match phpInterpSimpleBrackets "\[\h\w*]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+syn match phpInterpSimpleBrackets "\[\d\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+syn match phpInterpSimpleBrackets "\[0[xX]\x\+]" contained contains=phpBrackets,phpInterpSimpleBracketsInner
+syn match phpInterpSimple "\$\h\w*\(\[[^]]*\]\|->\h\w*\)\?" contained contains=phpInterpSimpleBrackets,phpIdentifier,phpInterpSimpleError,phpMethods,phpMemberSelector display
+syn match phpInterpVarname "\h\w*" contained
+syn match phpInterpMethodName "\h\w*" contained " default color
+syn match phpInterpSimpleCurly "\${\h\w*}" contains=phpInterpVarname contained extend
+syn region phpInterpDollarCurley1Helper matchgroup=phpParent start="{" end="\[" contains=phpInterpVarname contained
+syn region phpInterpDollarCurly1 matchgroup=phpParent start="\${\h\w*\["rs=s+1 end="]}" contains=phpInterpDollarCurley1Helper,@phpClConst contained extend
 
-	syn match phpInterpDollarCurley2Helper "{\h\w*->" contains=phpBrackets,phpInterpVarname,phpMemberSelector contained
+syn match phpInterpDollarCurley2Helper "{\h\w*->" contains=phpBrackets,phpInterpVarname,phpMemberSelector contained
 
-	syn region phpInterpDollarCurly2 matchgroup=phpParent start="\${\h\w*->"rs=s+1 end="}" contains=phpInterpDollarCurley2Helper,phpInterpMethodName contained
+syn region phpInterpDollarCurly2 matchgroup=phpParent start="\${\h\w*->"rs=s+1 end="}" contains=phpInterpDollarCurley2Helper,phpInterpMethodName contained
 
-	syn match phpInterpBogusDollarCurley "${\h\w*->}" contained display
-	syn match phpInterpBogusDollarCurley "${\h\w*\[]}" contained display
+syn match phpInterpBogusDollarCurley "${\h\w*->}" contained display
+syn match phpInterpBogusDollarCurley "${\h\w*\[]}" contained display
 
-	syn region phpInterpComplex matchgroup=phpParent start="{\$"rs=e-1 end="}" contains=phpIdentifier,phpMemberSelector,phpVarSelector,phpIdentifierComplexP contained extend
-	syn region phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contains=@phpClInside contained
-	" define a cluster to get all interpolation syntaxes for double-quoted strings
-	syn cluster phpInterpDouble contains=phpInterpSimple,phpInterpSimpleCurly,phpInterpDollarCurly1,phpInterpDollarCurly2,phpInterpBogusDollarCurley,phpInterpComplex
+syn region phpInterpComplex matchgroup=phpParent start="{\$"rs=e-1 end="}" contains=phpIdentifier,phpMemberSelector,phpVarSelector,phpIdentifierComplexP contained extend
+syn region phpIdentifierComplexP matchgroup=phpParent start="\[" end="]" contains=@phpClInside contained
+" define a cluster to get all interpolation syntaxes for double-quoted strings
+syn cluster phpInterpDouble contains=phpInterpSimple,phpInterpSimpleCurly,phpInterpDollarCurly1,phpInterpDollarCurly2,phpInterpBogusDollarCurley,phpInterpComplex
 
 " Methoden
 syn match phpMethodsVar "->\h\w*" contained contains=phpMethods,phpMemberSelector display
@@ -334,16 +334,16 @@ syn match phpNumber "\<0x\x\{1,8}\>" contained display
 syn match phpFloat "\(-\=\<\d+\|-\=\)\.\d\+\>" contained display
 
 " Backslash escapes
-	syn case match
-	" for double quotes and heredoc
-	syn match phpBackslashSequences "\\[fnrtv\\\"$]" contained display
-	syn match phpBackslashSequences "\\\d\{1,3}" contained contains=phpOctalError display
-	syn match phpBackslashSequences "\\x\x\{1,2}" contained display
-	" additional sequence for double quotes only
-	syn match phpBackslashDoubleQuote "\\[\"]" contained display
-	" for single quotes only
-	syn match phpBackslashSingleQuote "\\[\\']" contained display
-	syn case ignore
+syn case match
+" for double quotes and heredoc
+syn match phpBackslashSequences "\\[fnrtv\\\"$]" contained display
+syn match phpBackslashSequences "\\\d\{1,3}" contained contains=phpOctalError display
+syn match phpBackslashSequences "\\x\x\{1,2}" contained display
+" additional sequence for double quotes only
+syn match phpBackslashDoubleQuote "\\[\"]" contained display
+" for single quotes only
+syn match phpBackslashSingleQuote "\\[\\']" contained display
+syn case ignore
 
 
 " Error
