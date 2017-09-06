@@ -588,67 +588,67 @@ syntax match phpDocTodo "@\(todo\|fixme\|xxx\)\(\s\+\)\?" containedin=phpComment
 " Define the default highlighting.
 " Only when an item doesn't have highlighting yet
 
+hi def link phpBackslashDoubleQuote SpecialChar
+hi def link phpBackslashSequences SpecialChar
+hi def link phpBackslashSingleQuote SpecialChar
+hi def link phpBacktick String
+hi def link phpBaselib Function
+hi def link phpBoolean Boolean
+hi def link phpBrackets Delimiter
+hi def link phpComment Comment
+hi def link phpConditional Conditional
 hi def link phpConstant Constant
 hi def link phpCoreConstant Constant
-hi def link phpComment Comment
-hi def link phpDocTags PreProc
-hi def link phpDocCustomTags Type
-hi def link phpException Exception
-hi def link phpBoolean Boolean
-hi def link phpStorageClass StorageClass
-hi def link phpSCKeyword StorageClass
-hi def link phpFCKeyword Define
-hi def link phpStructure Structure
-hi def link phpStringSingle String
-hi def link phpStringDouble String
-hi def link phpBacktick String
-hi def link phpNumber Number
-hi def link phpFloat Float
-hi def link phpMethods Function
-hi def link phpFunctions Function
-hi def link phpBaselib Function
-hi def link phpRepeat Repeat
-hi def link phpConditional Conditional
-hi def link phpLabel Label
-hi def link phpStatement Statement
-hi def link phpKeyword Statement
-hi def link phpType Type
-hi def link phpInclude Include
 hi def link phpDefine Define
-hi def link phpBackslashSequences SpecialChar
-hi def link phpBackslashDoubleQuote SpecialChar
-hi def link phpBackslashSingleQuote SpecialChar
-hi def link phpParent Delimiter
-hi def link phpBrackets Delimiter
+hi def link phpDocCustomTags Type
+hi def link phpDocTags PreProc
+hi def link phpDocTodo Todo
+hi def link phpException Exception
+hi def link phpFCKeyword Define
+hi def link phpFloat Float
+hi def link phpFunctions Function
 hi def link phpIdentifierConst Delimiter
-hi def link phpParentError Error
-hi def link phpOctalError Error
-hi def link phpInterpSimpleError Error
+hi def link phpInclude Include
 hi def link phpInterpBogusDollarCurley Error
 hi def link phpInterpDollarCurly1 Error
 hi def link phpInterpDollarCurly2 Error
 hi def link phpInterpSimpleBracketsInner String
 hi def link phpInterpSimpleCurly Delimiter
+hi def link phpInterpSimpleError Error
 hi def link phpInterpVarname Identifier
-hi def link phpTodo Todo
-hi def link phpDocTodo Todo
+hi def link phpKeyword Statement
+hi def link phpLabel Label
 hi def link phpMemberSelector Structure
+hi def link phpMethods Function
+hi def link phpNumber Number
+hi def link phpOctalError Error
+hi def link phpParent Delimiter
+hi def link phpParentError Error
+hi def link phpRepeat Repeat
+hi def link phpSCKeyword StorageClass
+hi def link phpStatement Statement
+hi def link phpStorageClass StorageClass
+hi def link phpStringDouble String
+hi def link phpStringSingle String
+hi def link phpStructure Structure
+hi def link phpTodo Todo
+hi def link phpType Type
 if exists("php_oldStyle")
-  hi def phpIntVar guifg=Red ctermfg=DarkRed
   hi def phpEnvVar guifg=Red ctermfg=DarkRed
-  hi def phpOperator guifg=SeaGreen ctermfg=DarkGreen
-  hi def phpVarSelector guifg=SeaGreen ctermfg=DarkGreen
-  hi def phpRelation guifg=SeaGreen ctermfg=DarkGreen
   hi def phpIdentifier guifg=DarkGray ctermfg=Brown
   hi def phpIdentifierSimply guifg=DarkGray ctermfg=Brown
+  hi def phpIntVar guifg=Red ctermfg=DarkRed
+  hi def phpOperator guifg=SeaGreen ctermfg=DarkGreen
+  hi def phpRelation guifg=SeaGreen ctermfg=DarkGreen
+  hi def phpVarSelector guifg=SeaGreen ctermfg=DarkGreen
 else
-  hi def link phpIntVar Identifier
   hi def link phpEnvVar Identifier
-  hi def link phpOperator Operator
-  hi def link phpVarSelector Operator
-  hi def link phpRelation Operator
   hi def link phpIdentifier Identifier
   hi def link phpIdentifierSimply Identifier
+  hi def link phpIntVar Identifier
+  hi def link phpOperator Operator
+  hi def link phpRelation Operator
+  hi def link phpVarSelector Operator
 endif
 
 
